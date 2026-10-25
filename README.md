@@ -21,7 +21,7 @@ Las rutas para animaciones, switches, alertas, campos de texto, listas, modales,
 
 ## Herramientas que estoy usando
 
-- Expo SDK 57
+- Expo SDK 58
 - React Native y TypeScript
 - Expo Router
 - NativeWind y Tailwind CSS
