@@ -1,18 +1,17 @@
 import { allRoutes } from '@/constants/Routes';
 import { useThemeColor } from '@/hooks/use-theme';
+import { ThemeChangerProvider } from '@/presentation/context/ThemeChangerContext';
 import { Inter_400Regular, Inter_600SemiBold } from '@expo-google-fonts/inter';
 import { useFonts } from 'expo-font';
-import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
+import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-import { useColorScheme } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import '../../global.css';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const backgroundColor = useThemeColor({}, 'background');
-  const colorScheme = useColorScheme();
   const [loaded, error] = useFonts({
     Inter_400Regular,
     Inter_600SemiBold,
@@ -34,7 +33,8 @@ export default function RootLayout() {
     <GestureHandlerRootView
       style={{ backgroundColor: backgroundColor, flex: 1 }}
     >
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <ThemeChangerProvider>
+        {/* <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}> */}
         <Stack
           screenOptions={{
             headerShadowVisible: false,
@@ -59,11 +59,13 @@ export default function RootLayout() {
               name={route.name}
               options={{
                 title: route.title,
+                headerShown: !route.title.includes('Slides'),
               }}
             />
           ))}
         </Stack>
-      </ThemeProvider>
+        {/* </ThemeProvider> */}
+      </ThemeChangerProvider>
     </GestureHandlerRootView>
   );
 }
